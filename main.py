@@ -51,11 +51,6 @@ for filename in os.listdir('./cogs'):
     client.load_extension(f'cogs.{filename[:-3]}')
 
 
-@client.event
-async def on_member_join(member):
-  role = discord.utils.get(member.server.roles, name='Members')
-  await client.add_roles(member, role)
-  await member.send("This is private server. If you don't know who Bijay is, please leave this server")
 
 #status
 @client.event
