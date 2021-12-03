@@ -1,0 +1,102 @@
+{
+    "NEURODES": {
+        "location": "MARIANA",
+        "planet": "EARTH"
+    },
+    "OROKIN CELL": {
+        "location": "GABII",
+        "planet": "CERES"
+    },
+    "PLASTIDS": {
+        "location": "OPHELIA",
+        "planet": "URANUS"
+    },
+    "ALLOY PLATE": {
+        "location": "GABBI",
+        "planet": "CERES"
+    },
+    "CIRCUITS": {
+        "location": "GABBI",
+        "planet": "CERES"
+    },
+    "FERRITE": {
+        "location": "ANI",
+        "planet": "VOID"
+    },
+    "NANO SPORES": {
+        "location": "PISCINAS",
+        "planet": "SATURN"
+    },
+    "OXIUM": {
+        "location": "IO",
+        "planet": "JUPITER"
+    },
+    "SALVAGE": {
+        "location": "CAMERIA",
+        "planet": "JUPITER"
+    },
+    "CARBIDES": {
+        "location": "SEIMENI",
+        "planet": "CERES"
+    },
+    "POLYMER BUNDLE": {
+        "location": "OPHELIA",
+        "planet": "URANUS"
+    },
+    "ARGON CRYSTAL": {
+        "location": "TESHUB",
+        "planet": "VOID"
+    },
+    "CONTROL MODULE": {
+        "location": "TESHUB",
+        "planet": "VOID"
+    },
+    "GALLIUM": {
+        "location": "WAR, TITANIA",
+        "planet": "MARS, URNAUS"
+    },
+    "MORPHICS": {
+        "location": "ILIAD, TOLSTOJ",
+        "planet": "PHOBOS, MERCURY"
+    },
+    "FIELDRON": {
+        "location": "JUST DO THE INVASION",
+        "planet": "INVASION"
+    },
+    "NEURAL SENSORS": {
+        "location": "THEMISTO",
+        "planet": "JUPITER"
+    },
+    "THEMISTO": {
+        "location": "DON'T BE LAZY, DO INVASION",
+        "planet": "INVASION"
+    },
+    "FIELDRON SAMPLE": {
+        "location": "KELASHIN, WAHIBA",
+        "planet": "NEPTUNE, MARS"
+    },
+    "MUTAGEN MASS": {
+        "location": "DON'T BE LAZY, DO INVASION",
+        "planet": "INVASION"
+    },
+    "MUTAGEN SAMPLE": {
+        "location": "TERROREM, CAMBION DRIFT",
+        "planet": "DEIMOS"
+    },
+    "CRYPTOGRAPHIC ALU": {
+        "location": "SALACIA",
+        "planet": "NEPTUNE"
+    },
+    "ANIMO NAV BEACONS": {
+        "location": "REGNA (LEAVE IF NO OUTSIDE MAP)",
+        "planet": "PLUTO"
+    },
+    "RUBEDO": {
+        "location": "ZEUGMA",
+        "planet": "PHOBOS"
+    },
+    "ENDO": {
+        "location": "VODYANOI/YAM",
+        "planet": "SEDNA"
+    }
+}
