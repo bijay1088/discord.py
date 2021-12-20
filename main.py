@@ -10,6 +10,7 @@ from discord.utils import get
 import io
 import aiohttp
 import json
+from discord.ext import tasks
 
 
 
@@ -25,8 +26,11 @@ sorry = ["sorry bot"]
 
 hey = ["hi bot","hey bot","hello bot"]
 
-
 sucks=['this suck', 'this sucks']
+
+howru=['I am fine.Thanks for asking.','I am not fine right now. Thanks for asking.']
+
+okay=["how are you bot","are you okay bot"]
 
 sad_reply = ["Hang in there ( ͡❛ ⏥ ͡❛)",
 "Cheer up ( ͡◡ ‿ ͡◡)",
@@ -34,7 +38,70 @@ sad_reply = ["Hang in there ( ͡❛ ⏥ ͡❛)",
 "You are awesome! Never forget that. ( ͡~ ͜ʖ ͡°)",
 "Beautiful. Definition: A person who is reading this. ( ͡~ ͜ʖ ͡°)"]
 
-shut=["shut up bot", "shutup bot", "bot shutup", "bot shut up"]
+shut=["shut up bot", "shutup bot", "bot shutup", "bot shut up", "bot suck", "bot useless", "bot is useless", "useless bot"]
+
+task = False
+
+p=True
+
+evoke = "none"
+
+#send stuff in channel
+@client.command()
+async def send(ctx,channel: discord.TextChannel,*,mes=None):
+  global evoke
+  if str(ctx.author.id)==evoke:
+    await ctx.send("No")
+  else:
+    await channel.send(mes)
+    await ctx.send("Successful.")
+
+#stop send command
+@commands.is_owner()
+@client.command()
+async def evoke_send(ctx,member:discord.Member,y="remove"):
+  global evoke
+  if y!="remove":
+    evoke = str(member.id)
+    await ctx.send(f"{member.name} can no longer user send command.")
+  else:
+    evoke="none"
+    await ctx.send(f"{member.name} is free. Have fun :)")
+    
+#ping me
+@commands.is_owner()
+@client.command()
+async def pingme(ctx):
+  global p
+  if p:
+    p=False
+    await ctx.send("You will no longer get ping sire.")
+  else:
+    p=True
+    await ctx.send("You will start to get ping sire.")
+
+#loop a word
+@client.command()
+@commands.is_owner()
+async def loop(ctx):
+  global task
+  if task:
+    mytask.stop()
+    await ctx.send("Stopped successful.")
+    task=False
+  else:
+    mytask.start()
+    await ctx.send("Started Successful.")
+    task=True
+
+@commands.is_owner()
+@tasks.loop(seconds=10)
+async def mytask():
+  channel = client.get_channel(896994767588716564)
+  await channel.send("Testing")
+
+
+  
 
 @client.command()
 async def load(ctx, extension):
@@ -51,7 +118,6 @@ for filename in os.listdir('./cogs'):
     client.load_extension(f'cogs.{filename[:-3]}')
 
 
-
 #status
 @client.event
 async def on_ready():
@@ -64,7 +130,7 @@ async def ping(ctx):
   await ctx.send(f'{round(client.latency * 1000)}ms')
   pong = int(f'{round(client.latency * 1000)}') 
 
-  if pong > 100:
+  if pong > 50:
     await ctx.send("Sorry, I am kinda slow right now.")
   else:
     return
@@ -88,8 +154,8 @@ async def shutdown(ctx):
 async def help(ctx):
   author = ctx.message.author
 
-  embed = discord.Embed(title="Basic commands",description='invite\ndoggo, catto, fox, meme\npoll title options\ntriggred user', colour = discord.Color.red())
-  embed.add_field(name="Warframe", value="waybound, waybounds, mirage, sister, kavat, syndicate, polarity, baro, simaris, efficiency, trade, quest, crash, riven number_of_positive_stat, riven_help, farm resource_name, fusion highest_percentage",inline=False)
+  embed = discord.Embed(title="Basic commands",description='invite\ndoggo, catto, fox, meme\npoll title options\ntriggred user\nmath [expression]\nsend [channel] [message]', colour = discord.Color.red())
+  embed.add_field(name="Warframe", value="waybound, waybounds, mirage, sister, kavat, syndicate, polarity, baro, simaris, efficiency, trade, quest, crash, \nriven [number_of_positive_stat], riven_help, farm resource_name,\nfusion [highest_percentage]\ncrit [weapon_type] [base_critical_chance]\nkurel",inline=False)
   embed.add_field(name="Games", value="rock, paper, scissors, coin", inline=False)
   embed.set_footer(text='These are help commands.')
   await ctx.send(embed=embed)
@@ -100,6 +166,15 @@ async def help(ctx):
 async def _bijay(ctx):
   await ctx.send("<@" + str(563257720321474580) + ">")
 
+#math command
+@client.command()
+async def math(ctx,*,a:str):
+  if set(a).difference(set("1234567890/*-+().")):
+    await ctx.send("Math expressions only. :)")
+  else:
+    ans=eval(a)
+    await ctx.send(ans)
+    
 #invite link
 @client.command()
 async def invite(ctx):
@@ -134,6 +209,7 @@ async def triggered(ctx, member: discord.Member=None):
 
 #new
 
+bad =["fuck"]
 
 #message line
 @client.event
@@ -146,6 +222,9 @@ async def on_message(message):
   if any(word in msg for word in sad):
     await message.channel.send(random.choice(sad_reply))
 
+  if any(word in msg for word in bad):
+    await message.channel.send("Don't be rude :(")
+
   if any(word in msg for word in sorry):
     await message.channel.send("It's okay ( ᵔ ͜ʖ ᵔ )")
 
@@ -155,7 +234,9 @@ async def on_message(message):
         return
 
   if any(word in msg for word in bijay):
-    await message.channel.send("<@" + str(563257720321474580) + ">"+" someone wants to talk with you, I think.")
+    global p
+    if p==True:
+      await message.channel.send("<@" + str(563257720321474580) + ">"+" someone wants to talk with you, I think.")
 
   if any(word in msg for word in hey):
     await message.channel.send("Hi ( ͡ᵔ ͜ʖ ͡ᵔ)")
@@ -170,6 +251,9 @@ async def on_message(message):
     for i in client.guilds:
       emoji = discord.utils.get(i.emojis, name = "speechless")
     await message.channel.send(emoji)
+
+  if any(word in msg for word in okay):
+    await message.channel.send(random.choice(howru))
   
   if any(word in msg for word in sucks):
     async with aiohttp.ClientSession() as session:
